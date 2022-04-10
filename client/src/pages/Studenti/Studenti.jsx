@@ -1,14 +1,16 @@
 import React from 'react';
-import Logo from '../../components/Logo';
+import AddStudent from '../../components/AddStudent';
+import StudentList from '../../components/StudentList';
+import { StudentiContextProvider } from '../../context/StudentiContext';
 
 const Studenti = () => {
   return (
-    <div>
-      <div className='studenti'>
-        <h1>Studenti</h1>
+    <StudentiContextProvider>
+      <div>
+        <AddStudent />
+        <StudentList />
       </div>
-      <Logo />
-    </div>
+    </StudentiContextProvider>
   )
 }
 

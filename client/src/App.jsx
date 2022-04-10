@@ -7,6 +7,7 @@ import Profesori from './pages/Profesori/Profesori';
 import Profil from './pages/Profil/Profil';
 import Studenti from './pages/Studenti/Studenti';
 import Teme from './pages/Teme/Teme';
+import UpdateStudenti from './pages/Studenti/UpdateStudenti';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/profesori' element={<Profesori />} />
         <Route path='/profil' element={<Profil />} />
         <Route path='/studenti' element={<Studenti />} />
+        <Route path='/studenti/:id/update' element={<UpdateStudenti />} />
         <Route path='/Teme' element={<Teme />} />
       </Routes>
     </Router>
