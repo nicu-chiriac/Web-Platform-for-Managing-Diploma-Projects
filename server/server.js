@@ -1,16 +1,18 @@
 require('dotenv').config();
 const express = require("express");
+const cors = require("cors");
 const db = require('./db');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 //GET Lista Studenti
 app.get("/api/studentlist", async (req, res) => {
   try {
     const results = await db.query("select * from studenti");
-    console.log(results);
+
     res.status(200).json({
     status:"succes",
     results: results.rows.length,
@@ -22,6 +24,26 @@ app.get("/api/studentlist", async (req, res) => {
     console.log(err);
   }
 });
+
+app.get("/api/search", async (req, res) => {
+  try {
+    let { param } = req.query;
+    param = param.toLowerCase();
+    const query = '%' + param + '%';
+    results = await db.query('SELECT * FROM studenti WHERE lower(nume) || lower(prenume) || lower(email) || lower(email_institutional) || lower(specializare) || lower(grupa) || an_inscriere  LIKE $1', [query]);
+
+    res.status(200).json({
+    status:"succes",
+    results: results.rows.length,
+    data: {
+      studenti: results.rows,
+    },
+  });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 //GET Un singur student
 app.get("/api/studentlist/:id", async (req, res) => {
@@ -45,10 +67,8 @@ app.post("/api/studentlist", async (req, res) => {
   console.log(req.body);
   
   try {
-    //const [nume, prenume, email, email_institutional, an_inscriere, an_curent_student, specializare, grupa] = req.body;
     const results = await db.query("INSERT INTO studenti (nume, prenume, email, email_institutional, an_inscriere, an_curent_student, specializare, grupa) values ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
     [req.body.nume, req.body.prenume, req.body.email, req.body.email_institutional, req.body.an_inscriere, req.body.an_curent_student, req.body.specializare, req.body.grupa]);
-    //console.log(results);
     res.status(201).json({
       data : {
         studenti : results.rows[0],

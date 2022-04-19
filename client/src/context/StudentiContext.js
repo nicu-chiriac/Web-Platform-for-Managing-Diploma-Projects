@@ -8,9 +8,12 @@ export const StudentiContextProvider = props => {
   const addStudent = (student) => {
     setStudenti([...studenti, student]);
   }
+
   return (
     <StudentiContext.Provider value={{studenti, setStudenti, addStudent}}>
       {props.children}
     </StudentiContext.Provider>
   );
 }
+
+

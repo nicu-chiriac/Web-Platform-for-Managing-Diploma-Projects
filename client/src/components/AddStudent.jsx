@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import StudentFinder from '../apis/StudentFinder';
 import { Button, Modal } from 'react-bootstrap';
-import './AddStudent.css';
+import './ButtonsCSS.css';
 import { StudentiContext } from '../context/StudentiContext';
+import Swal from 'sweetalert2';
 
 function AddStudent() {
   const {addStudent} = useContext(StudentiContext)
@@ -35,7 +36,15 @@ function AddStudent() {
       });
       addStudent(response.data.data.studenti);
       handleClose();
-      alert("Student adaugat cu succes!");
+      Swal.fire({      
+        position: 'bottom-start',
+        title: "Succes!",
+        text: `Studentul ${response.data.data.studenti.nume} ${response.data.data.studenti.prenume} a fost adaugat cu succes!`,
+        button: "OK!",
+        timer: 2500,
+        timerProgressBar: true,
+        allowOutsideClick: true
+      });
       
     } catch (error) {
       

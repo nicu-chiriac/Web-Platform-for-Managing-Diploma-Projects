@@ -1,0 +1,27 @@
+.btn-toolbar {
+  display: flex;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  justify-content: flex-end;
+}
+
+.btn-group-1 {
+  display: flex;
+  margin-right: 1vw;
+  justify-content: right;
+}
+
+.btn-group-2 {
+  display: flex;
+  margin-right: 2vw;
+  justify-content: right;
+}
+
+.search {
+  margin-right: auto;
+  margin-left: 1vw;
+}
+
+.swal2-popup {
+  font-size: 1rem !important;
+}

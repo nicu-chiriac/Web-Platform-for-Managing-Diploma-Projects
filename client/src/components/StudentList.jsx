@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import StudentFinder from '../apis/StudentFinder';
 import { StudentiContext } from '../context/StudentiContext';
 import './StudentList.css';
+import Swal from 'sweetalert2';
 
 const StudentList = () => {
   const {studenti, setStudenti}= useContext(StudentiContext)
@@ -14,7 +15,38 @@ const StudentList = () => {
     };
     
     fetchData();
+    
   }, []);
+
+  
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Esti sigur?',
+      text: "Odată ștearsă înregistrarea nu va mai putea fi recuperată!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Da, șterge!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          StudentFinder.delete(`/${id}`);
+          setStudenti(studenti.filter(student => {
+            return student.id !== id
+          }))
+        } catch (error) {
+          console.log(error)
+        }
+        Swal.fire(
+          'Șters!',
+          'înregistrarea a fost ștearsă cu succes.',
+          'info'
+        )
+      }
+    }) 
+  }
   
   return (
     <div className='list-group'>
@@ -46,42 +78,11 @@ const StudentList = () => {
                 <td>{student.grupa}</td>
                 <td>
                   <button className='btn btn-outline-warning btn-sm'>Update</button>
-                  <button className='btn btn-outline-danger btn-sm'>Delete</button>
+                  <button onClick={() => handleDelete(student.id)} className='btn btn-outline-danger btn-sm'>Delete</button>
                 </td>
             </tr>
             )
           })}
-            
-           
-          {/* <tr>
-            <td>Chiriac</td>
-            <td>Nicu-Manuel</td>
-            <td>nicu.chiriac99@yahoo.com</td>
-            <td>nicu_manuel.chiriac@stud.fiir.upb.ro</td>
-            <td>2018</td>
-            <td>4</td>
-            <td>IAII</td>
-            <td>641AD</td>
-            <td>
-              <button className='btn btn-outline-warning btn-sm'>Update</button>
-              <button className='btn btn-outline-danger btn-sm'>Delete</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Chiriac</td>
-            <td>Nicu</td>
-            <td>nicu.chiriac99@yahoo.com</td>
-            <td>nicu_manuel.chiriac@stud.fiir.upb.ro</td>
-            <td>2018</td>
-            <td>4</td>
-            <td>IAII</td>
-            <td>641AD</td>
-            <td>
-              <button className='btn btn-outline-warning btn-sm'>Update</button>
-              <button className='btn btn-outline-danger btn-sm'>Delete</button>
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </div>
@@ -89,3 +90,4 @@ const StudentList = () => {
 }
 
 export default StudentList
+
