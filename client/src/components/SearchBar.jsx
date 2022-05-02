@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { StudentiContext } from "../context/StudentiContext";
 import StudentSearch from "../apis/StudentSearch";
+import { MdPersonSearch } from 'react-icons/md';
+import './SearchBar.css';
 
 const SearchBar = () => {
   const {setStudenti} = useContext(StudentiContext);
@@ -13,8 +15,10 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className ="inputContainer">
+      <MdPersonSearch size='1.8em' className="inputIcon" />
       <input 
+        size={30}
         className="search" 
         placeholder="Cauta..." 
         onChange={(event) => fetchData(event.target.value)}

@@ -4,6 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import './ButtonsCSS.css';
 import { StudentiContext } from '../context/StudentiContext';
 import Swal from 'sweetalert2';
+import { MdSchool } from 'react-icons/md';
 
 function AddStudent() {
   const {addStudent} = useContext(StudentiContext)
@@ -54,7 +55,7 @@ function AddStudent() {
   return (
     <div className='addButton'>
       <Button variant="primary" onClick={handleShow}>
-        Adauga
+        Adauga <MdSchool size='1.8em'/>
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static">

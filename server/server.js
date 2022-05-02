@@ -11,7 +11,7 @@ app.use(express.json());
 //GET Lista Studenti
 app.get("/api/studentlist", async (req, res) => {
   try {
-    const results = await db.query("select * from studenti");
+    const results = await db.query("SELECT * FROM studenti ORDER BY nume asc");
 
     res.status(200).json({
     status:"succes",
@@ -25,12 +25,13 @@ app.get("/api/studentlist", async (req, res) => {
   }
 });
 
+//GET search student
 app.get("/api/search", async (req, res) => {
   try {
     let { param } = req.query;
     param = param.toLowerCase();
     const query = '%' + param + '%';
-    results = await db.query('SELECT * FROM studenti WHERE lower(nume) || lower(prenume) || lower(email) || lower(email_institutional) || lower(specializare) || lower(grupa) || an_inscriere  LIKE $1', [query]);
+    results = await db.query('SELECT * FROM studenti WHERE lower(nume) || lower(prenume) || lower(email) || lower(email_institutional) || lower(specializare) || lower(grupa) || an_inscriere  LIKE $1 ORDER BY nume asc', [query]);
 
     res.status(200).json({
     status:"succes",
@@ -78,6 +79,31 @@ app.post("/api/studentlist", async (req, res) => {
     console.log(error);
   }
 });
+
+//POST importa studenti din CSV in baza de date
+  app.post("/api/studentlist/importcsv", async (req, res) => {
+  try {
+    // console.log(req.body);
+    for (i = 0; i < req.body.length; i++) {
+      let student = req.body[i]
+      const results = await db.query("INSERT INTO studenti (nume, prenume, email, email_institutional, an_inscriere, an_curent_student, specializare, grupa) values ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
+                      [student.nume, student.prenume, student.email, student.email_institutional, student.an_inscriere, student.an_curent_student,student.specializare, student.grupa]);
+      // console.log(results)
+    }
+    
+   } catch (error) {
+     
+   }
+ });
+
+ //GET exporta studenti din baza de date intr-un fisier CSV
+// app.get("/api/studentlist/download", async (req, res) => {
+//   try {
+//     const results = await db.query("COPY (SELECT nume , prenume , email , email_institutional , an_inscriere , an_curent_student , specializare , grupa  FROM studenti)  TO 'D:/CSVuri/studentiexportati10.csv' DELIMITER ',' ENCODING 'UTF8' WITH CSV HEADER;")
+//   } catch (error) {
+//     console.log(error);
+//   }
+// })
 
 //UPDATE studenti
 app.put("/api/studentlist/:id", async (req, res) => {

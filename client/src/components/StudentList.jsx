@@ -3,6 +3,8 @@ import StudentFinder from '../apis/StudentFinder';
 import { StudentiContext } from '../context/StudentiContext';
 import './StudentList.css';
 import Swal from 'sweetalert2';
+import { BiEdit } from 'react-icons/bi';
+import { TiDelete } from 'react-icons/ti';
 
 const StudentList = () => {
   const {studenti, setStudenti}= useContext(StudentiContext)
@@ -50,9 +52,10 @@ const StudentList = () => {
   
   return (
     <div className='list-group'>
+      <div className='table-wrapper'>
       <table className='table table-hover table-default'>
         <thead>
-          <tr className='bg-light'>
+          <tr>
             <th scope='col'>Nume</th>
             <th scope='col'>Prenume</th>
             <th scope='col'>Email</th>
@@ -77,14 +80,15 @@ const StudentList = () => {
                 <td>{student.specializare}</td>
                 <td>{student.grupa}</td>
                 <td>
-                  <button className='btn btn-outline-warning btn-sm'>Update</button>
-                  <button onClick={() => handleDelete(student.id)} className='btn btn-outline-danger btn-sm'>Delete</button>
+                  <button className='btn btn-outline-dark btn-sm'><BiEdit size="1.5em"/></button>
+                  <button onClick={() => handleDelete(student.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em"/></button>
                 </td>
             </tr>
             )
           })}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }
