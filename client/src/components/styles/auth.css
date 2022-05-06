@@ -1,0 +1,62 @@
+.authHeader {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  color: #060b26;
+}
+
+.container {
+  max-width: 30%;
+  min-width: 300px;
+  color: #060b26;
+  margin-top: 1em;
+  text-align: center;
+  background: transparent;
+}
+
+
+.container>.centerize {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.submitButton {
+  background: transparent;
+  color: #060b26;
+  /* text-decoration: none; */
+  padding: 10px 10px;
+  border-radius: 10px;
+  width: 100px;
+  text-transform: uppercase;
+}
+
+.submitButton:hover {
+  background-color: #060b26;
+  color: whitesmoke;
+  transition: .2s;
+}
+
+.form-control {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  /* border-bottom-width: 2px; */
+  background-color: transparent;
+}
+
+.form-control:focus {
+  outline: none !important;
+}
+
+.input-wrapper {
+  position: relative
+}
+
+.icon {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  
+}

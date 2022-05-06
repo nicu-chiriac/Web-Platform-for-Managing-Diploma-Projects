@@ -12,6 +12,7 @@ const StudentList = () => {
     const fetchData = async () => {
       try {
         const response = await StudentFinder.get("/");
+        console.log(response)
         setStudenti(response.data.data.studenti);
       } catch (error) {}
     };
@@ -43,7 +44,7 @@ const StudentList = () => {
         }
         Swal.fire(
           'Șters!',
-          'înregistrarea a fost ștearsă cu succes.',
+          'Înregistrarea a fost ștearsă cu succes.',
           'info'
         )
       }

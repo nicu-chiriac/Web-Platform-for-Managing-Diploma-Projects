@@ -1,5 +1,4 @@
 import React from 'react';
-// import './StudentList.css';
 
 const ProfesoriList = () => {
   return (
@@ -7,7 +6,7 @@ const ProfesoriList = () => {
       <div className='list-group'>
         <table className='table table-hover table-default'>
           <thead>
-            <tr className='bg-light'>
+            <tr className='bg-dark'>
               <th scope='col'>Nume</th>
               <th scope='col'>Prenume</th>
               <th scope='col'>Grad didactic</th>
@@ -19,17 +18,19 @@ const ProfesoriList = () => {
             </tr>
           </thead>
           <tbody>
-            <td>Tarbă</td>
-            <td>Ioan-Cristian</td>
-            <td>A</td>
-            <td>B</td>
-            <td>x@yahoo.com</td>
-            <td>y@upb.ro</td>
-            <td>4</td>
-            <td>
+            <tr>
+              <td>Tarbă</td>
+              <td>Ioan-Cristian</td>
+              <td>A</td>
+              <td>B</td>
+              <td>x@yahoo.com</td>
+              <td>y@upb.ro</td>
+              <td>4</td>
+              <td>
               <button className='btn btn-outline-warning btn-sm'>Update</button>
               <button className='btn btn-outline-danger btn-sm'>Delete</button>
-            </td>      
+              </td>
+            </tr>        
           </tbody>
         </table>
       </div>

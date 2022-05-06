@@ -2,8 +2,34 @@
   background-color: #060b26;
   height: 80px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+}
+
+.authbuttons {
+  justify-content: flex-end;
+  margin-right: 1rem;
+}
+
+.navlinkbuttons {
+  text-decoration: none;
+  font-size: large;
+  color: #ffffff;
+  margin-right: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.logoutbutton {
+  justify-content: flex-end;
+  margin-right: 2rem;
+  text-decoration: none;
+  font-size: large;
+  color: #ffffff;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
 }
 
 .menu-bars {
@@ -68,6 +94,7 @@
   align-items: center;
 }
 
-span {
+.spanitems {
   margin-left: 16px;
 }
+
