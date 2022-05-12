@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
     email: user.email,
   }
   try {
-    const token = await sign(payload, SECRET)
+    const token = await sign(payload, SECRET, {expiresIn:'60m'})
     
     return res.status(200).cookie('token', token, { httpOnly: true }).json({
       succes: true,

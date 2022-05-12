@@ -1,27 +1,25 @@
 import React, { useContext, useEffect } from 'react';
-import StudentFinder from '../apis/StudentFinder';
-import { StudentiContext } from '../context/StudentiContext';
+import ProfessorFinder from '../apis/ProfessorFinder';
+import { ProfessorsContext } from '../context/ProfessorsContext';
 import './Tables.css';
 import Swal from 'sweetalert2';
 import { BiEdit } from 'react-icons/bi';
 import { TiDelete } from 'react-icons/ti';
 
-const StudentList = () => {
-  const {studenti, setStudenti}= useContext(StudentiContext)
+const ProfessorsList = () => {
+  const {professors, setProfessors}= useContext(ProfessorsContext)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await StudentFinder.get("/");
+        const response = await ProfessorFinder.get("/");
         console.log(response)
-        setStudenti(response.data.data.studenti);
+        setProfessors(response.data.data.professors);
       } catch (error) {}
     };
     
     fetchData();
     
   }, []);
-
-  
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -35,9 +33,9 @@ const StudentList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          StudentFinder.delete(`/${id}`);
-          setStudenti(studenti.filter(student => {
-            return student.id !== id
+          ProfessorFinder.delete(`/${id}`);
+          setProfessors(professors.filter(professor => {
+            return professor.id !== id
           }))
         } catch (error) {
           console.log(error)
@@ -59,30 +57,28 @@ const StudentList = () => {
           <tr>
             <th scope='col'>Nume</th>
             <th scope='col'>Prenume</th>
+            <th scope='col'>Grad Didactic</th>
+            <th scope='col'>Grad Științific</th>
             <th scope='col'>Email</th>
             <th scope='col'>Email institutional</th>
-            <th scope='col'>An inscriere</th>
-            <th scope='col'>An curent student</th>
-            <th scope='col'>Specializare</th>
-            <th scope='col'>Grupa</th>
+            <th scope='col'>Număr curent studenți</th>
             <th scope='col'>Actiuni</th>
           </tr>
         </thead>
         <tbody>
-          {studenti && studenti.map(student => {
+          {professors && professors.map(professor => {
             return (
-              <tr key = {student.id}>
-                <td>{student.nume}</td>
-                <td>{student.prenume}</td>
-                <td>{student.email}</td>
-                <td>{student.email_institutional}</td>
-                <td>{student.an_inscriere}</td>
-                <td>{student.an_curent_student}</td>
-                <td>{student.specializare}</td>
-                <td>{student.grupa}</td>
+              <tr key = {professor.id}>
+                <td>{professor.nume}</td>
+                <td>{professor.prenume}</td>
+                <td>{professor.grad_didactic}</td>
+                <td>{professor.grad_stiintific}</td>
+                <td>{professor.email}</td>
+                <td>{professor.email_institutional}</td>
+                <td>{professor.numar_curent_studenti}</td>
                 <td>
                   <button className='btn btn-outline-dark btn-sm'><BiEdit size="1.5em"/></button>
-                  <button onClick={() => handleDelete(student.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em"/></button>
+                  <button onClick={() => handleDelete(professor.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em"/></button>
                 </td>
             </tr>
             )
@@ -94,5 +90,4 @@ const StudentList = () => {
   )
 }
 
-export default StudentList
-
+export default ProfessorsList

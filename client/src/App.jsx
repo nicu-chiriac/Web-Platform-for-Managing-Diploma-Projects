@@ -21,7 +21,7 @@ const protectedInfo = async () => {
     await fetchProtectedInfo()
     isProtected = true
   } catch (error) {
-    isProtected = false
+    
   }
 }
 
@@ -39,13 +39,7 @@ const RestrictedRoutes = () => {
   return <>{!(isAuth && isProtected) ? <Outlet /> : <Navigate to='/acasa' />}</>
 }
 
-
-
 const App = () => {
-
-  // useEffect(() => {
-  //   protectedInfo()
-  // }, [])
   
   return (
   <>

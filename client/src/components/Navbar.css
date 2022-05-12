@@ -2,8 +2,27 @@
   background-color: #060b26;
   height: 80px;
   display: flex;
-  align-items: center;
+  z-index: 1;
 }
+
+.page-icons {
+  background-color: transparent;
+  position: absolute;
+  border: none;
+  left: 5rem;
+  bottom: 27px;
+  color: #f5f5f5;
+}
+
+.fiir-link {
+  background-color: transparent;
+  position: absolute;
+  border: none;
+  left: 14rem;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
 
 .authbuttons {
   justify-content: flex-end;
@@ -36,6 +55,7 @@
   margin-left: 2rem;
   font-size: 2rem;
   background: none;
+  margin-bottom: 4px;
 }
 
 .nav-menu {
@@ -76,8 +96,9 @@
 }
 
 .nav-text a:hover {
-  background-color: #1a83ff;
+  background-color: #6e7499bf;
   padding: 16px;
+  color: #f5f5f5;
 }
 
 .nav-menu-items {
@@ -97,4 +118,6 @@
 .spanitems {
   margin-left: 16px;
 }
+
+
 

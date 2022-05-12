@@ -13,7 +13,9 @@ import { BiLogOut } from 'react-icons/bi';
 import { onLogout } from '../apis/AuthFinder';
 import { unauthenticateUser } from '../redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
-// import { fetchProtectedInfo } from '../apis/AuthFinder';
+import { VscDebugStart } from 'react-icons/vsc';
+import { ImLink } from 'react-icons/im';
+
 
 const Navbar= () => {
   const [sidebar, setSidebar] = useState(false);
@@ -23,20 +25,6 @@ const Navbar= () => {
   const dispatch = useDispatch()
   
   const {isAuth} = useSelector((state) => state.auth)
-
-  // let isProtected = false
-  // const protectedInfo = async () => {
-  //   try {
-  //     await fetchProtectedInfo()
-  //     isProtected = true
-  //   } catch (error) {
-  //     isProtected = false
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   protectedInfo()
-  // }, [])
 
   const logout = async () => {
     try {
@@ -56,6 +44,17 @@ const Navbar= () => {
         <Link to="#" className='menu-bars'>
           <FaIcons.FaBars onClick={showSidebar}/>
         </Link>
+        <NavLink to='/'>
+          <button className='page-icons'>Pagina de start<VscDebugStart size="1.5em" /></button>
+        </NavLink>
+        <button 
+          className='fiir-link' 
+          onClick={(e) => {
+            e.preventDefault();
+            window.open("http://www.fiir.upb.ro/index.php/ro/", "_blank");
+          }}>
+          Site FIIR <ImLink />
+        </button>
         {isAuth ? (
           <div>
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
