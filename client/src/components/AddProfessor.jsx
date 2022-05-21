@@ -4,7 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import './ButtonsCSS.css';
 import { ProfessorsContext } from '../context/ProfessorsContext';
 import Swal from 'sweetalert2';
-import { MdSchool } from 'react-icons/md';
+import { FaUniversity } from 'react-icons/fa';
 
 function AddProfessor() {
   const {addProfessor} = useContext(ProfessorsContext)
@@ -54,7 +54,7 @@ function AddProfessor() {
   return (
     <div className='addButton'>
       <Button variant="primary" onClick={handleShow}>
-        Adauga <MdSchool size='1.8em'/>
+        Adauga <FaUniversity size='1.8em'/> 
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static">

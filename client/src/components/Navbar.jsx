@@ -15,6 +15,7 @@ import { unauthenticateUser } from '../redux/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { VscDebugStart } from 'react-icons/vsc';
 import { ImLink } from 'react-icons/im';
+import Swal from 'sweetalert2';
 
 
 const Navbar= () => {
@@ -32,6 +33,14 @@ const Navbar= () => {
 
       dispatch(unauthenticateUser())
       localStorage.removeItem('isAuth')
+      Swal.fire({      
+        position: 'bottom-start',
+        title: "Delogare reușită!",
+        button: "OK!",
+        timer: 2500,
+        timerProgressBar: true,
+        allowOutsideClick: true
+      });
     } catch (error) {
       console.log(error.response)
     }

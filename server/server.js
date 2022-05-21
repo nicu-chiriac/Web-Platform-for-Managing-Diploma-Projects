@@ -17,9 +17,8 @@ app.use(passport.initialize());
 //import routes
 const authRoutes = require('./src/routes/auth-routes')
 
-//initializare rute
+//initializare rute 
 app.use('/api', authRoutes)
-
 
 const port = PORT || 3002;
 

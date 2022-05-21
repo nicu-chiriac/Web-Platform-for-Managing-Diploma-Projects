@@ -1,14 +1,20 @@
 import React from 'react';
-import Logo from '../../components/Logo';
+import TemeList from '../../components/TemeList';
+import { TemeContextProvider } from '../../context/TemeContext';
+import AddTema from '../../components/AddTema';
 
 const Teme = () => {
   return (
+    <TemeContextProvider>
     <div>
-      <div className='teme'>
-        <h1>Teme</h1>
+      <div className='btn-toolbar'>
+        <div className='btn-group-2'>
+          <AddTema />  
+        </div>
       </div>
-      <Logo />
+      <TemeList />
     </div>
+    </TemeContextProvider>
   )
 }
 

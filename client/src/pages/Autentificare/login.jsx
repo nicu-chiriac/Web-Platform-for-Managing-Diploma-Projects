@@ -5,6 +5,7 @@ import { authenticateUser } from '../../redux/slices/authSlice';
 import './../../components/styles/auth.css'
 import { BsPersonFill } from 'react-icons/bs';
 import { RiShieldKeyholeFill } from 'react-icons/ri';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
@@ -27,6 +28,14 @@ const Login = () => {
       dispatch(authenticateUser())
 
       localStorage.setItem('isAuth', 'true')
+      Swal.fire({      
+        position: 'bottom-start',
+        title: "Autentificare realizată cu succes!",
+        button: "OK!",
+        timer: 2500,
+        timerProgressBar: true,
+        allowOutsideClick: true
+      });
     } catch (error) {
       console.log(error.response.data.errors[0].msg)
       setError(error.response.data.errors[0].msg)

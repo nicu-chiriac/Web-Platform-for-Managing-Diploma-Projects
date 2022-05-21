@@ -14,6 +14,7 @@ import Login from './pages/Autentificare/login';
 import Register from './pages/Autentificare/register';
 import { useSelector } from 'react-redux';
 import { fetchProtectedInfo } from './apis/AuthFinder'
+import UpdateTemePage from './pages/Teme/UpdateTemePage';
 
 let isProtected = false
 const protectedInfo = async () => {
@@ -56,6 +57,7 @@ const App = () => {
           <Route path='/studenti' element={<Studenti />} />
           <Route path='/studenti/:id/update' element={<UpdateStudenti />} />
           <Route path='/teme' element={<Teme />} />
+          <Route path='/teme/:id/update' element={<UpdateTemePage />} />
         </Route>
        
         <Route element={<RestrictedRoutes />}>

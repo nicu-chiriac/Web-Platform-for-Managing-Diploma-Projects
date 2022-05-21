@@ -1,6 +1,6 @@
 const db = require('../db');
 const { hash } = require('bcryptjs');
-const { sign } = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const { SECRET } = require('../constants')
 
 exports.getUsers = async (req,res) => {
@@ -27,7 +27,6 @@ exports.register = async (req,res) => {
       succes: true,
       message: 'Înregistrare realizată cu succes!'
     })
-
     
   } catch (error) {
     console.log(error.message)
@@ -43,14 +42,20 @@ exports.login = async (req, res) => {
   let payload = {
     id: user.user_id,
     email: user.email,
+    role : user.roles
   }
   try {
-    const token = await sign(payload, SECRET, {expiresIn:'60m'})
+    //Creare JWTs
+    const accessToken = await jwt.sign(payload, SECRET, { expiresIn:'60m' })
     
-    return res.status(200).cookie('token', token, { httpOnly: true }).json({
+    // const refreshToken = await jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn:'1d' })
+
+    return res.status(200).cookie('token', accessToken , { httpOnly: true }).json({
       succes: true,
       message: "Login realizat cu succes!",
-    })
+    });
+      // res.json({ accessToken });
+
   } catch (error) {
     console.log(error.message)
     return res.status(500).json({

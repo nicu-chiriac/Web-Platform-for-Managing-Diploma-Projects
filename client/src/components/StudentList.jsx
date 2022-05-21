@@ -69,7 +69,7 @@ const StudentList = () => {
           </tr>
         </thead>
         <tbody>
-          {studenti && studenti.map(student => {
+          {studenti && studenti.slice(1).map(student => {
             return (
               <tr key = {student.id}>
                 <td>{student.nume}</td>

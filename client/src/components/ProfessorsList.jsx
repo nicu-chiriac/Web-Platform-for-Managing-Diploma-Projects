@@ -66,7 +66,7 @@ const ProfessorsList = () => {
           </tr>
         </thead>
         <tbody>
-          {professors && professors.map(professor => {
+          {professors && professors.slice(1).map(professor => {
             return (
               <tr key = {professor.id}>
                 <td>{professor.nume}</td>

@@ -5,7 +5,7 @@ const db = require('../db');
 exports.getTemeList = async (req, res) => {
   try {
     const results = await db.query(
-      "SELECT t.id, t.denumire_descriere_tema, s.nume, s.prenume, p.nume, p.prenume, f.file_path, t.status_tema FROM public.teme t,studenti s, professors p,files f WHERE t.id_studenti = s.id AND t.id_professor  = p.id AND t.id_file_path = f.id ORDER BY s.nume asc");
+      "SELECT t.id, t.denumire_descriere_tema, concat( s.nume, ' ', s.prenume ) AS fullname_s, concat( p.nume, ' ', p.prenume ) AS fullname_p , f.file_path, t.status_tema FROM public.teme t,studenti s, professors p,files f WHERE t.id_studenti = s.id AND t.id_professor  = p.id AND t.id_file_path = f.id ORDER BY s.nume asc");
     res.status(200).json({
     status:"succes",
     results: results.rows.length,
@@ -55,18 +55,22 @@ exports.addTema = async (req, res) => {
 //UPDATE alocare student si coordonator la o tema
 exports.updateTema = async (req, res) => {
   try {
-    const results = await db.query("UPDATE public.teme SET id_professor = $1, id_studenti = $2 where id = $3 returning *",
-    [req.body.id_professor, req.body.id_studenti, req.params.id]);
+    const result_p = await db.query("SELECT p.id FROM professors p WHERE concat( p.nume, ' ', p.prenume ) = $1", [req.body.fullname_p]);
+    const result_s = await db.query("SELECT s.id FROM studenti s WHERE concat( s.nume, ' ', s.prenume ) = $1", [req.body.fullname_s]);
+    
+    const results = await db.query("UPDATE public.teme SET denumire_descriere_tema=$1, id_studenti=$2, id_professor=$3, status_tema=$4 WHERE id=$5 returning *",
+    [req.body.denumire_descriere_tema , result_s.rows[0].id , result_p.rows[0].id , req.body.status_tema , req.params.id]);
+    
     res.status(200).json({
     data : {
-      teme : results.rows[0],
+      teme : results.rows[0]
     },
     });
   } catch (error) {
     console.log(error);
   }
-  console.log(req.params.id);
-  console.log(req.body);
+  // console.log(req.params.id);
+  // console.log(req.body);
 
   
 }
