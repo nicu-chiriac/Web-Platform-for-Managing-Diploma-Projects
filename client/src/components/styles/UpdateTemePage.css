@@ -7,3 +7,33 @@
   flex: 1 1 0px;
   border: 1px solid black;
 }
+
+.vecteezy {
+  position: absolute;
+  max-width: 50%;
+  float: right;
+  right: 0px;
+  bottom: 0px;
+  /* z-index: -1; */
+}
+.title-teme-page {
+  margin-left: 13%;
+  margin-top: 0.2em;
+  color: #22467a;
+}
+
+@media (max-width: 950px) {
+  .vecteezy {
+    display: none;
+  }
+
+  .title-teme-page {
+    text-align: center;
+  }
+}
+
+@media (max-width: 950px) {
+  .title-teme-page {
+    margin-left: 0px;
+  }
+}

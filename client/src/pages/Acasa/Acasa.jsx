@@ -1,13 +1,14 @@
 import React from 'react';
-import Logo from '../../components/Logo';
+import '../../components/styles/acasa.css';
 
 const Acasa = () => {
   return (
-    <div>
-      <div className='acasa'>
-        <h1>Acasa</h1>
+    <div className='acasa-container'>
+      <div className='acasa-center-wrapper'>
+        <img className='logo-facultate' src="/fiir_logo.png" alt="Fiir logo" />
+        <h1 className='heading-acasa'>Bine ai venit!</h1>
       </div>
-      <Logo />
+      <img className='triangles' src='/triangles.png' alt="triangles" />
     </div>
   )
 }

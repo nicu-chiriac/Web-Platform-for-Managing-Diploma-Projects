@@ -49,7 +49,6 @@ exports.login = async (req, res) => {
     const accessToken = await jwt.sign(payload, SECRET, { expiresIn:'60m' })
     
     // const refreshToken = await jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn:'1d' })
-
     return res.status(200).cookie('token', accessToken , { httpOnly: true }).json({
       succes: true,
       message: "Login realizat cu succes!",
@@ -64,14 +63,31 @@ exports.login = async (req, res) => {
   }
 }
 
+
 exports.protected = async (req,res) => {
   try {
     
     return res.status(200).json({
-      info: 'protected info',
+      info: 'ok',
     })
   } catch (error) {
     console.log(error.message)
+    return res.status(401).json({
+      info: 'unauthorized'
+    })
+  }
+}
+
+exports.adminProtected = async (req,res) => {
+  try {
+    return res.status(200).json({
+      info: 'ok'
+    })
+  } catch (error) {
+    console.log(error.message)
+    return res.status(401).json({
+      info: 'unauthorized'
+    })
   }
 }
 

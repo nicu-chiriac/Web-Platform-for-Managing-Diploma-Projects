@@ -17,6 +17,7 @@ import { fetchProtectedInfo } from './apis/AuthFinder'
 import UpdateTemePage from './pages/Teme/UpdateTemePage';
 
 let isProtected = false
+
 const protectedInfo = async () => {
   try {
     await fetchProtectedInfo()
@@ -25,8 +26,8 @@ const protectedInfo = async () => {
     
   }
 }
-
-protectedInfo()
+protectedInfo();
+console.log("APP log " + isProtected)
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth)
@@ -52,6 +53,7 @@ const App = () => {
         
         <Route element={<PrivateRoutes />}>
           <Route path='/acasa' element={<Acasa />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/profesori' element={<Profesori />} />
           <Route path='/profil' element={<Profil />} />
           <Route path='/studenti' element={<Studenti />} />
@@ -61,7 +63,6 @@ const App = () => {
         </Route>
        
         <Route element={<RestrictedRoutes />}>
-          <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
         </Route>
        

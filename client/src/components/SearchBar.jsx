@@ -11,6 +11,7 @@ const SearchBar = () => {
     try {
       const response = await StudentSearch.get(`?param=${searchValue}`);
       setStudenti(response.data.data.studenti);
+      console.log(response.data.data.studenti)
     } catch (error) {}
   };
 

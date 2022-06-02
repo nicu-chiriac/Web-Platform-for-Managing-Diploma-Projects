@@ -3,7 +3,7 @@ import ProfessorsList from '../../components/ProfessorsList';
 import { ProfessorsContextProvider } from '../../context/ProfessorsContext';
 import AddProfessor from '../../components/AddProfessor';
 import ImportCSVProfessors from '../../components/ImportCSVProfessors';
-import ExportCSVStudenti from '../../components/ExportCSVStudenti';
+// import ExportCSVStudenti from '../../components/ExportCSVStudenti';
 import '../../components/ButtonsCSS.css';
 import SearchBarProfessors from '../../components/SearchBarProfessors';
 
@@ -11,23 +11,23 @@ import SearchBarProfessors from '../../components/SearchBarProfessors';
 const Profesori = () => {
   return (
     <ProfessorsContextProvider>
-    <div>
-      <div className='btn-toolbar'>
-        <div className='search'>
-          <SearchBarProfessors />
-        </div>
-        <div className='btn-group-1'>
-          <ImportCSVProfessors />
-        </div>
-        <div className='btn-group-1'>
+      <div>
+        <div className='btn-toolbar'>
+          <div className='search'>
+            <SearchBarProfessors />
+          </div>
+          <div className='btn-group-1'>
+            <ImportCSVProfessors />
+          </div>
+          {/* <div className='btn-group-1'>
           <ExportCSVStudenti />
+        </div> */}
+          <div className='btn-group-2'>
+            <AddProfessor />
+          </div>
         </div>
-        <div className='btn-group-2'>
-          <AddProfessor />  
-        </div>
+        <ProfessorsList />
       </div>
-      <ProfessorsList />
-    </div>
     </ProfessorsContextProvider>
   )
 }

@@ -1,0 +1,69 @@
+.wrapper-div {
+  display: flex;
+  /* flex-direction: column; */
+  background: linear-gradient(300deg, #c9defd95, #7689d6c5);
+  max-width: 40%;
+  border-radius: 40px;
+  min-width: 400px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-left: 5%;
+}
+
+#save-button {
+  max-height: 50px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+}
+
+.edit {
+  margin-top: 0.5em;
+  /* width: max-content; */
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  /* max-width: 40%; */
+  min-width: 400px;
+}
+
+.field-title {
+  font-size: 1.2rem;
+  /* background-color: #22467a; */
+  /* color: #f5f5f5; */
+  color: #1d3d6e;
+  width: max-content;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  /* padding: 0.3em;
+  border-radius: 10px; */
+}
+
+.form-group {
+  margin: 1em;
+  flex-direction: column;
+  
+}
+
+
+@media (max-width: 850px) {
+  
+  .form-fields {
+    flex-direction: column;
+    /* max-width: 80%; */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .field-title {
+    display: flex;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}

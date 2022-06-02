@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const { PORT, CLIENT_URL } = require("./src/constants");
 const cookieParser = require('cookie-parser');
-const passport = require('passport')
+const passport = require('passport');
 
 //import passport middlewares
 require('./src/middlewares/passport-middleware');

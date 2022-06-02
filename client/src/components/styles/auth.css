@@ -37,18 +37,17 @@
   transition: .2s;
 }
 
-.form-control {
+/* .form-control {
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: groove;
-  /* border-bottom-width: 2px; */
   background-color: transparent;
 }
 
 .form-control:focus {
   outline: none !important;
-}
+} */
 
 .input-wrapper {
   position: relative

@@ -5,6 +5,7 @@ const db = require('../db');
 
 exports.getProfessorsList = async (req, res) => {
   try {
+    const update = await db.query("UPDATE professors p SET numar_curent_studenti = (SELECT count(t.id) FROM teme t WHERE t.id_professor = p.id) WHERE p.id > 0;");
     const results = await db.query("SELECT * FROM professors ORDER BY nume asc");
 
     res.status(200).json({
@@ -59,6 +60,24 @@ exports.getProfessor = async (req, res) => {
   } 
 };
 
+//GET Un nume + prenume student
+
+exports.getFullNameProfesor = async (req, res) => {
+  console.log(req.params.id);
+
+  try {
+    const results = await db.query("select concat(p.nume, ' ', p.prenume) as fullname_p from professors p where id = $1", [req.params.id]);
+    res.status(200).json({
+      status: "succes", 
+      data : {
+        professors : results.rows[0],
+      }
+    })
+  } catch (error) {
+    console.log(error);
+  } 
+};
+
 //POST Adauga un profesor nou
 
 exports.addProfessor = async (req, res) => {
@@ -93,14 +112,6 @@ exports.addProfessor = async (req, res) => {
    }
  };
 
- //GET exporta studenti din baza de date intr-un fisier CSV
-// app.get("/api/studentlist/download", async (req, res) => {
-//   try {
-//     const results = await db.query("COPY (SELECT nume , prenume , email , email_institutional , an_inscriere , an_curent_student , specializare , grupa  FROM studenti)  TO 'D:/CSVuri/studentiexportati10.csv' DELIMITER ',' ENCODING 'UTF8' WITH CSV HEADER;")
-//   } catch (error) {
-//     console.log(error);
-//   }
-// })
 
 //UPDATE profesori
 

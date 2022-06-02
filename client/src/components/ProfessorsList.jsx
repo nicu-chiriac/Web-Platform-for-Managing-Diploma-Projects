@@ -1,12 +1,33 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import ProfessorFinder from '../apis/ProfessorFinder';
 import { ProfessorsContext } from '../context/ProfessorsContext';
 import './Tables.css';
 import Swal from 'sweetalert2';
 import { BiEdit } from 'react-icons/bi';
 import { TiDelete } from 'react-icons/ti';
+import { fetchRestrictedInfo } from '../apis/AuthFinder';
 
 const ProfessorsList = () => {
+
+  let isRestricted = useRef(false);
+
+  const restrictedInfo = async () => {
+    try {
+      const request = await fetchRestrictedInfo()
+      
+      if (request.status === 200) {
+        isRestricted.current = true;
+      
+      }
+      
+    } catch (error) {
+      
+    }
+  }
+  restrictedInfo();
+  restrictedInfo();
+
+
   const {professors, setProfessors}= useContext(ProfessorsContext)
   useEffect(() => {
     const fetchData = async () => {
@@ -34,17 +55,27 @@ const ProfessorsList = () => {
       if (result.isConfirmed) {
         try {
           ProfessorFinder.delete(`/${id}`);
-          setProfessors(professors.filter(professor => {
-            return professor.id !== id
-          }))
+          if (isRestricted.current === true) {
+            setProfessors(professors.filter(professor => {
+              return professor.id !== id
+            }))
+            Swal.fire(
+              'Șters!',
+              'Înregistrarea a fost ștearsă cu succes.',
+              'info'
+            )
+          } else {
+            Swal.fire({      
+              position: 'center',
+              title: "Eșuat!",
+              text:"Nu sunteți autorizat!" ,
+              button: "Închide",
+              allowOutsideClick: true 
+            })
+          } 
         } catch (error) {
           console.log(error)
         }
-        Swal.fire(
-          'Șters!',
-          'Înregistrarea a fost ștearsă cu succes.',
-          'info'
-        )
       }
     }) 
   }
@@ -66,10 +97,10 @@ const ProfessorsList = () => {
           </tr>
         </thead>
         <tbody>
-          {professors && professors.slice(1).map(professor => {
+          {professors && professors.filter(s => s.id > 0).map(professor => {
             return (
               <tr key = {professor.id}>
-                <td>{professor.nume}</td>
+                <td>{professor.nume.toUpperCase()}</td>
                 <td>{professor.prenume}</td>
                 <td>{professor.grad_didactic}</td>
                 <td>{professor.grad_stiintific}</td>

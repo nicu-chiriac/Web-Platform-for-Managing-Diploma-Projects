@@ -86,15 +86,14 @@ const Navbar= () => {
             </ul>
             </nav>
             <button onClick={() => logout()} className='logoutbutton'><BiLogOut /> Logout</button>
+            <NavLink to='/register'>
+              <button className='navlinkbuttons'><BsFillPersonPlusFill /> Register</button>
+            </NavLink>
           </div>
         ) : (
           <div className="authbuttons">
             <NavLink to='/login'>
               <button className='navlinkbuttons'><MdLogin /> Login</button>
-            </NavLink>
-
-            <NavLink to='/register'>
-              <button className='navlinkbuttons'><BsFillPersonPlusFill /> Register</button>
             </NavLink>
           </div>
         )}

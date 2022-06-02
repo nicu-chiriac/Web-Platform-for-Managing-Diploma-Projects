@@ -16,3 +16,7 @@ export async function onLogout() {
 export async function fetchProtectedInfo() {
   return await axios.get('http://localhost:3001/api/protected')
 }
+
+export async function fetchRestrictedInfo() {
+  return await axios.get('http://localhost:3001/api/restricted')
+}

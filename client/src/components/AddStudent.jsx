@@ -48,7 +48,13 @@ function AddStudent() {
       });
       
     } catch (error) {
-      
+      Swal.fire({      
+        position: 'center',
+        title: "Eșuat!",
+        text:"Nu sunteți autorizat!" ,
+        button: "Închide",
+        allowOutsideClick: true 
+      })
     }
   }
 

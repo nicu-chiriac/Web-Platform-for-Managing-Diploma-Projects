@@ -1,3 +1,12 @@
 .row-tema {
   width:45%;
 }
+
+/* modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  }
+  .modal-backdrop.fade.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  } */

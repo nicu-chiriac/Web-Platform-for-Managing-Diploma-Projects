@@ -9,6 +9,7 @@ import { RiFilePaper2Fill } from 'react-icons/ri';
 function AddTema() {
   const {addTema} = useContext(TemeContext)
   const [numeTema, setNumeTema] = useState("");
+  // const [fisiere, setFisiere] = useState(-1);
   
   const [show, setShow] = useState(false);
 
@@ -20,6 +21,7 @@ function AddTema() {
     try {
       const response = await TemeFinder.post("/", {
         denumire_descriere_tema : numeTema,
+        // id_file_path : fisiere
       });
       addTema(response.data.data.teme);
       handleClose();
@@ -61,6 +63,17 @@ function AddTema() {
                   />
                 </div>
               </div>
+              {/* <div>
+                <div className='p-1'>
+                    <input 
+                      value={fisiere} 
+                      onChange={(e) => setFisiere(-1)} 
+                      type="text" 
+                      className='form-control'
+                      placeholder='Fisiere' 
+                    />
+                </div>
+              </div> */}
             </form>
           
         </Modal.Body>
