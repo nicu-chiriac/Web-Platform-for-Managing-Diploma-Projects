@@ -10,49 +10,61 @@ import { useNavigate } from 'react-router-dom';
 import { GrStatusGood } from 'react-icons/gr';
 import { VscFileSymlinkDirectory } from 'react-icons/vsc';
 import { fetchRestrictedInfo } from '../apis/AuthFinder';
-import { Button, Modal } from 'react-bootstrap';
+// import { Button, Modal } from 'react-bootstrap';
+// import { FaYahoo } from 'react-icons/fa';
+
 
 
 const TemeList = () => {
 
-  const [show, setShow] = useState(false);
-  
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+
+  const currentUserEmail = localStorage.getItem('email');
+  console.log(currentUserEmail)
 
   let isRestricted = useRef(false);
 
   const restrictedInfo = async () => {
     try {
       const request = await fetchRestrictedInfo()
-      
+
       if (request.status === 200) {
         isRestricted.current = true;
-      
+
       }
-      
+
     } catch (error) {
-      
+
     }
   }
-  
-  restrictedInfo();
-  restrictedInfo();
-  
 
-  const {teme, setTeme}= useContext(TemeContext)
+  restrictedInfo();
+  restrictedInfo();
+
+
+  const { teme, setTeme } = useContext(TemeContext)
   let navigate = useNavigate()
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await TemeFinder.get("/");
-        console.log(response)
-        setTeme(response.data.data.teme);
-      } catch (error) {}
+
+        let professorsArray = response.data.data.teme.filter(tema => tema.email === currentUserEmail);
+
+        if (professorsArray.length) {
+          setTeme(professorsArray)
+        } else {
+          setTeme(response.data.data.teme)
+        }
+      } catch (error) { }
     };
-    
+
     fetchData();
-    
+
   }, []);
 
   const handleDelete = (id) => {
@@ -78,87 +90,76 @@ const TemeList = () => {
               'info'
             )
           } else {
-            Swal.fire({      
+            Swal.fire({
               position: 'center',
               title: "Eșuat!",
-              text:"Nu sunteți autorizat!" ,
+              text: "Nu sunteți autorizat!",
               button: "Închide",
-              allowOutsideClick: true 
+              allowOutsideClick: true
             })
           }
-          
+
         } catch (error) {
           console.log(error)
         }
       }
-    }) 
+    })
   }
 
   const handleUpdate = (id) => {
     navigate(`/teme/${id}/update`);
   }
-  
+
+  const handleAddFile = (id) => {
+    navigate(`/teme/${id}/upload`);
+  }
+
   return (
     <div className='list-group'>
-      <Modal show={show} onHide={handleClose} backdrop="static">
-        <Modal.Header closeButton>
-          <Modal.Title>Fișiere</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>Aici vor fi fișierele</div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button id='1' variant="info" 
-            onClick={handleClose}
-            >
-            Ok!
-          </Button>
-        </Modal.Footer>
-      </Modal>
       <div className='table-wrapper'>
-      <table className='table table-hover table-default'>
-        <thead>
-          <tr>
-            <th className='row-tema' scope='col'>Denumire / descriere temă</th>
-            <th scope='col'>Student</th>
-            <th scope='col'>Grupă</th>
-            <th scope='col'>Profesor</th>
-            <th scope='col'>Fișiere</th>
-            <th scope='col'>Status temă</th>
-            <th scope='col'>Actiuni</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teme && teme.map(tema => {
-            return (
-              <tr key = {tema.id}>
-                <td>{tema.denumire_descriere_tema}</td>
-                <td>{tema.fullname_s}</td>
-                <td>{tema.grupa}</td>
-                <td>{tema.fullname_p}</td>
-                <td>{tema.file_path}
-                  <button type ="button" className="btn btn-outline-dark btn-sm" onClick={ handleShow }>
-                    <VscFileSymlinkDirectory size="1.5em"/>
-                  </button>
-                </td>
-                <td>{tema.status_tema}
-                {tema.status_tema ? (
-                  <>
-                    <div className='verified-icon'><GrStatusGood size="1.5em" /></div>
-                  </>
-                ) : (
-                  <></>
-                )}
-                </td>
-                <td>
-                  <button onClick={() => handleUpdate(tema.id)} className='btn btn-outline-dark btn-sm'><BiEdit size="1.5em"/></button>
-                  <button onClick={() => handleDelete(tema.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em"/></button>
-                </td>
+        <table className='table table-hover table-default'>
+          <thead>
+            <tr>
+              <th className='row-tema' scope='col'>Denumire / descriere temă</th>
+              <th scope='col'>Student</th>
+              <th scope='col'>Grupă</th>
+              <th scope='col'>Profesor</th>
+              <th scope='col'>Fișiere</th>
+              <th scope='col'>Status temă</th>
+              <th scope='col'>Actiuni</th>
             </tr>
-            )
-          })}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {teme && teme.map(tema => {
+              return (
+                <tr key={tema.id}>
+                  <td>{tema.denumire_descriere_tema}</td>
+                  <td>{tema.fullname_s}</td>
+                  <td>{tema.grupa}</td>
+                  <td>{tema.fullname_p}</td>
+                  <td>{tema.file_path}
+                    <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => handleAddFile(tema.id)}>
+                      <VscFileSymlinkDirectory size="1.5em" />
+                    </button>
+                  </td>
+                  <td>{tema.status_tema}
+                    {tema.status_tema ? (
+                      <>
+                        <div className='verified-icon'><GrStatusGood size="1.5em" /></div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </td>
+                  <td>
+                    <button onClick={() => handleUpdate(tema.id)} className='btn btn-outline-dark btn-sm'><BiEdit size="1.5em" /></button>
+                    <button onClick={() => handleDelete(tema.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em" /></button>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   )

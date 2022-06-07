@@ -8,7 +8,7 @@ const password = check('password')
   .withMessage('Parola trebuie să aibă între 6 și 15 caractere')
 
 //email
-const email = check('email')
+const email = check('email') 
   .isEmail()
   .withMessage('Adresa de email nu este validă. Încearcă din nou!')
   

@@ -18,14 +18,14 @@ import { ImLink } from 'react-icons/im';
 import Swal from 'sweetalert2';
 
 
-const Navbar= () => {
+const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
-  
+
   const dispatch = useDispatch()
-  
-  const {isAuth} = useSelector((state) => state.auth)
+
+  const { isAuth } = useSelector((state) => state.auth)
 
   const logout = async () => {
     try {
@@ -33,7 +33,8 @@ const Navbar= () => {
 
       dispatch(unauthenticateUser())
       localStorage.removeItem('isAuth')
-      Swal.fire({      
+      localStorage.removeItem('email')
+      Swal.fire({
         position: 'bottom-start',
         title: "Delogare reușită!",
         button: "OK!",
@@ -45,60 +46,60 @@ const Navbar= () => {
       console.log(error.response)
     }
   }
- 
+
   return (
     <>
-    <IconContext.Provider value={{color:  '#fff'}}>
-      <div className="navbar">
-        <Link to="#" className='menu-bars'>
-          <FaIcons.FaBars onClick={showSidebar}/>
-        </Link>
-        <NavLink to='/'>
-          <button className='page-icons'>Pagina de start<VscDebugStart size="1.5em" /></button>
-        </NavLink>
-        <button 
-          className='fiir-link' 
-          onClick={(e) => {
-            e.preventDefault();
-            window.open("http://www.fiir.upb.ro/index.php/ro/", "_blank");
-          }}>
-          Site FIIR <ImLink />
-        </button>
-        {isAuth ? (
-          <div>
-            <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-            <ul className='nav-menu-items' onClick={showSidebar}>
-              <li className='navbar-toggle'>
-                <Link to="#" className='menu-bars'>
-                  <AiIcons.AiFillCloseSquare />
-                </Link>
-              </li>
-              {SidebarData.map((item, index) => {
-                return (
-                  <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span className='spanitems'>{item.title}</span>
+      <IconContext.Provider value={{ color: '#fff' }}>
+        <div className="navbar">
+          <Link to="#" className='menu-bars'>
+            <FaIcons.FaBars onClick={showSidebar} />
+          </Link>
+          <NavLink to='/'>
+            <button className='page-icons'>Pagina de start<VscDebugStart size="1.5em" /></button>
+          </NavLink>
+          <button
+            className='fiir-link'
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://www.fiir.upb.ro/index.php/ro/", "_blank");
+            }}>
+            Site FIIR <ImLink />
+          </button>
+          {isAuth ? (
+            <div>
+              <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+                <ul className='nav-menu-items' onClick={showSidebar}>
+                  <li className='navbar-toggle'>
+                    <Link to="#" className='menu-bars'>
+                      <AiIcons.AiFillCloseSquare />
                     </Link>
                   </li>
-                )
-              })}
-            </ul>
-            </nav>
-            <button onClick={() => logout()} className='logoutbutton'><BiLogOut /> Logout</button>
-            <NavLink to='/register'>
-              <button className='navlinkbuttons'><BsFillPersonPlusFill /> Register</button>
-            </NavLink>
-          </div>
-        ) : (
-          <div className="authbuttons">
-            <NavLink to='/login'>
-              <button className='navlinkbuttons'><MdLogin /> Login</button>
-            </NavLink>
-          </div>
-        )}
-      </div>
-    </IconContext.Provider>
+                  {SidebarData.map((item, index) => {
+                    return (
+                      <li key={index} className={item.cName}>
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span className='spanitems'>{item.title}</span>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </nav>
+              <button onClick={() => logout()} className='logoutbutton'><BiLogOut /> Logout</button>
+            </div>
+          ) : (
+            <div className="authbuttons">
+              <NavLink to='/login'>
+                <button className='navlinkbuttons'><MdLogin /> Login</button>
+              </NavLink>
+              <NavLink to='/register'>
+                <button className='navlinkbuttons'><BsFillPersonPlusFill /> Register</button>
+              </NavLink>
+            </div>
+          )}
+        </div>
+      </IconContext.Provider>
     </>
   )
 }

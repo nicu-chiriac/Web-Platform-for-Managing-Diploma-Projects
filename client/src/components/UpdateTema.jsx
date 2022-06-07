@@ -14,7 +14,7 @@ import './styles/UpdateTema.css';
 
 
 const UpdateTema = (props) => {
- 
+
   const { id } = useParams();
   let navigate = useNavigate();
   const { teme } = useContext(TemeContext);
@@ -24,14 +24,14 @@ const UpdateTema = (props) => {
   const [statusTema, setStatusTema] = useState();
   const { studenti, setStudenti } = useContext(StudentiContext);
   const { professors, setProfessors } = useContext(ProfessorsContext);
-  
+
   const [show, setShow] = useState(false);
-  
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
   const [showProfesor, setShowProfesor] = useState(false);
-  
+
   const handleCloseProfesor = () => setShowProfesor(false);
   const handleShowProfesor = () => setShowProfesor(true);
 
@@ -56,25 +56,25 @@ const UpdateTema = (props) => {
     try {
       const response = await ProfessorSearch.get(`?param=${searchValue}`);
       setProfessors(response.data.data.professors);
-      
-    } catch (error) {}
+
+    } catch (error) { }
   };
-  
+
   const fetchFullNameStudent = async (id_s) => {
     try {
       const response = await StudentFinder.get(`/fullname/${id_s}`);
       return response
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const fetchFullNameProfesor = async (id_p) => {
     try {
       const response = await ProfessorFinder.get(`/fullname/${id_p}`);
       return response
-    } catch (error) {}
+    } catch (error) { }
   };
-  
-  
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,17 +84,13 @@ const UpdateTema = (props) => {
 
       setNumeTema(response.data.data.teme.denumire_descriere_tema);
       setStudent(response2.data.data.studenti.fullname_s);
-      // console.log(response2.data.studenti.fullname_s);
       setProfesor(response3.data.data.professors.fullname_p);
       setStatusTema(response.data.data.teme.status_tema)
-
-      // setNewStudent(response.data.data.teme.fullname_s);
-      // setNewProfesor(response.data.data.teme.fullname_p);
     };
 
     fetchData();
   }, []);
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -125,7 +121,7 @@ const UpdateTema = (props) => {
             />
           </div>
           {/* Div pentru student */}
-          <div className ="form-group">
+          <div className="form-group">
             <label className="field-title" htmlFor="name">Student</label>
             <input
               value={student}
@@ -135,52 +131,52 @@ const UpdateTema = (props) => {
               type="text"
             />
             <div className='edit'>
-              <button type="button" className="btn btn-outline-dark" onClick={ handleShow }>
+              <button type="button" className="btn btn-outline-dark" onClick={handleShow}>
                 Edit student
-                <MdEdit size='1.2em'/>
+                <MdEdit size='1.2em' />
               </button>
-              <button type="button" className="btn btn-outline-dark" onClick={ handleEmptyStudent }>Lasă câmpul necompletat</button>
+              <button type="button" className="btn btn-outline-dark" onClick={handleEmptyStudent}>Lasă câmpul necompletat</button>
               <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                   <Modal.Title>Editare student</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form>
+                  <form>
+                    <div>
                       <div>
-                        <div>
-                          <input 
-                            size={30}
-                            className="search" 
-                            placeholder="Cauta..." 
-                            onChange={(event) => fetchData(event.target.value)}
-                            >
-                          </input>
-                        </div>
-                        <select value={student} onChange={(e) => setStudent(e.target.value)}>
-                          {studenti && studenti.map(student => (
-                                <option id={student.id}>
-                                  <option>{`${student.nume} ${student.prenume}`}</option>
-                                </option>
-                            )
-                          )}
-                        </select>
+                        <input
+                          size={30}
+                          className="search"
+                          placeholder="Cauta..."
+                          onChange={(event) => fetchData(event.target.value)}
+                        >
+                        </input>
                       </div>
-                    </form>
-                  
+                      <select value={student} onChange={(e) => setStudent(e.target.value)}>
+                        {studenti && studenti.map(student => (
+                          <option id={student.id}>
+                            <option>{`${student.nume} ${student.prenume}`}</option>
+                          </option>
+                        )
+                        )}
+                      </select>
+                    </div>
+                  </form>
+
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button id='1' variant="info" 
+                  <Button id='1' variant="info"
                     onClick={handleClose}
-                    >
+                  >
                     Ok!
                   </Button>
                 </Modal.Footer>
               </Modal>
             </div>
           </div>
-            
+
           {/* Div pentru profesor */}
-          <div className ="form-group">
+          <div className="form-group">
             <label className="field-title" htmlFor="name">Profesor coordonator</label>
             <input
               value={profesor}
@@ -192,9 +188,9 @@ const UpdateTema = (props) => {
             <div className='edit'>
               <button type="button" className="btn btn-outline-dark sm" onClick={handleShowProfesor}>
                 Edit profesor
-                <MdEdit size='1.2em'/>
+                <MdEdit size='1.2em' />
               </button>
-              <button type="button" className="btn btn-outline-dark" onClick={ handleEmptyProfesor }>Lasă câmpul necompletat</button>
+              <button type="button" className="btn btn-outline-dark" onClick={handleEmptyProfesor}>Lasă câmpul necompletat</button>
               <Modal show={showProfesor} onHide={handleCloseProfesor} backdrop="static">
                 <Modal.Header closeButton>
                   <Modal.Title>Editare profesor coordonator</Modal.Title>
@@ -203,20 +199,20 @@ const UpdateTema = (props) => {
                   <form>
                     <div>
                       <div>
-                        <input 
+                        <input
                           size={30}
-                          className="search" 
-                          placeholder="Cauta..." 
+                          className="search"
+                          placeholder="Cauta..."
                           onChange={(event) => fetchDataProfessor(event.target.value)}
-                          >
+                        >
                         </input>
                       </div>
                       <select value={profesor} onChange={(e) => setProfesor(e.target.value)}>
                         {professors && professors.map(professor => {
                           return (
-                              <option id={professor.id}>
-                                <option>{`${professor.nume} ${professor.prenume}`}</option>
-                              </option>
+                            <option id={professor.id}>
+                              <option>{`${professor.nume} ${professor.prenume}`}</option>
+                            </option>
                           )
                         })}
                       </select>
@@ -224,23 +220,23 @@ const UpdateTema = (props) => {
                   </form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button id='1' variant="info" 
+                  <Button id='1' variant="info"
                     onClick={handleCloseProfesor}
-                    >
+                  >
                     Ok!
                   </Button>
                 </Modal.Footer>
               </Modal>
             </div>
           </div>
-          
+
           {/* Status tema */}
           <div className="form-group">
             <div className="field-title">Status curent temă</div>
-            <select 
-              value={statusTema} 
+            <select
+              value={statusTema}
               onChange={(e) => setStatusTema(e.target.value)}
-              className='form-control' 
+              className='form-control'
             >
               <option defautlvalue={statusTema} disabled>Schimbă statusul temei</option>
               <option value='true'>True</option>
@@ -248,12 +244,12 @@ const UpdateTema = (props) => {
             </select>
           </div>
           <button
-          type="submit"
-          onClick={handleSubmit}
-          className="btn btn-warning"
-          id="save-button"
+            type="submit"
+            onClick={handleSubmit}
+            className="btn btn-warning"
+            id="save-button"
           >
-          Salvează modificările
+            Salvează modificările
           </button>
         </div>
       </form>

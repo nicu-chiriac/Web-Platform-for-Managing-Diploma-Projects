@@ -28,7 +28,7 @@ const Login = () => {
       dispatch(authenticateUser())
 
       localStorage.setItem('isAuth', 'true')
-      Swal.fire({      
+      Swal.fire({
         position: 'bottom-start',
         title: "Autentificare realizată cu succes!",
         button: "OK!",
@@ -36,6 +36,7 @@ const Login = () => {
         timerProgressBar: true,
         allowOutsideClick: true
       });
+      localStorage.setItem('email', values.email)
     } catch (error) {
       console.log(error.response.data.errors[0].msg)
       setError(error.response.data.errors[0].msg)
@@ -89,7 +90,7 @@ const Login = () => {
             Submit
           </button>
         </div>
-       
+
       </form>
     </div>
   )

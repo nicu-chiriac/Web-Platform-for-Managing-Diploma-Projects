@@ -52,7 +52,12 @@ exports.login = async (req, res) => {
     return res.status(200).cookie('token', accessToken , { httpOnly: true }).json({
       succes: true,
       message: "Login realizat cu succes!",
+      currentUser : user.user_id,
+      email : user.email,
+      role : user.roles
     });
+      // res.setLocale(user.user_id)
+   
       // res.json({ accessToken });
 
   } catch (error) {
@@ -62,6 +67,14 @@ exports.login = async (req, res) => {
     })
   }
 }
+
+// exports.getCurrentUser = (req, res, next) => {
+//   const token = req.cookie.jwt;
+
+//   if (token) {
+//     jwt.verify(token, )
+//   }
+// }
 
 
 exports.protected = async (req,res) => {

@@ -15,6 +15,7 @@ import Register from './pages/Autentificare/register';
 import { useSelector } from 'react-redux';
 import { fetchProtectedInfo } from './apis/AuthFinder'
 import UpdateTemePage from './pages/Teme/UpdateTemePage';
+import UploadTemePage from './pages/Teme/UploadTemePage';
 
 let isProtected = false
 
@@ -23,7 +24,7 @@ const protectedInfo = async () => {
     await fetchProtectedInfo()
     isProtected = true
   } catch (error) {
-    
+
   }
 }
 protectedInfo();
@@ -42,33 +43,34 @@ const RestrictedRoutes = () => {
 }
 
 const App = () => {
-  
+
   return (
-  <>
-    <Router>
-      <Navbar />
-      <Routes>
-        
-        <Route path='/' element={<LandingPage />} />
-        
-        <Route element={<PrivateRoutes />}>
-          <Route path='/acasa' element={<Acasa />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/profesori' element={<Profesori />} />
-          <Route path='/profil' element={<Profil />} />
-          <Route path='/studenti' element={<Studenti />} />
-          <Route path='/studenti/:id/update' element={<UpdateStudenti />} />
-          <Route path='/teme' element={<Teme />} />
-          <Route path='/teme/:id/update' element={<UpdateTemePage />} />
-        </Route>
-       
-        <Route element={<RestrictedRoutes />}>
-          <Route path='/login' element={<Login />} />
-        </Route>
-       
-      </Routes>
-    </Router>
-  </>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+
+          <Route path='/' element={<LandingPage />} />
+
+          <Route element={<PrivateRoutes />}>
+            <Route path='/acasa' element={<Acasa />} />
+            <Route path='/profesori' element={<Profesori />} />
+            <Route path='/profil' element={<Profil />} />
+            <Route path='/studenti' element={<Studenti />} />
+            <Route path='/studenti/:id/update' element={<UpdateStudenti />} />
+            <Route path='/teme' element={<Teme />} />
+            <Route path='/teme/:id/update' element={<UpdateTemePage />} />
+            <Route path='/teme/:id/upload' element={<UploadTemePage />} />
+          </Route>
+
+          <Route element={<RestrictedRoutes />}>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Route>
+
+        </Routes>
+      </Router>
+    </>
   );
 }
 

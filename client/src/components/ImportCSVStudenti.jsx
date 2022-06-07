@@ -3,7 +3,7 @@ import * as XLSX from "xlsx";
 import StudentFinder from '../apis/StudentFinder';
 
 function ImportCSVStudenti() {
-  
+
   // const [items, setItems] = useState([]);
 
   const readExcel = (file) => {
@@ -40,16 +40,16 @@ function ImportCSVStudenti() {
       }
     });
   };
-  
+
   return (
     <div>
       <input
-      type="file"
-      onChange={(e) => {
-        const file = e.target.files[0];
-        readExcel(file);
-      }}
-      className="btn btn-success"
+        type="file"
+        onChange={(e) => {
+          const file = e.target.files[0];
+          readExcel(file);
+        }}
+        className="btn btn-success"
       />
     </div>
   )

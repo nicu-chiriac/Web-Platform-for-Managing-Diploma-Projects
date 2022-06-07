@@ -5,7 +5,7 @@ const db = require('../db');
 exports.getTemeList = async (req, res) => {
   try {
     const results = await db.query(
-      "SELECT t.id, t.denumire_descriere_tema, concat( UPPER(s.nume), ' ', s.prenume ) AS fullname_s, s.grupa , concat( UPPER(p.nume), ' ', p.prenume ) AS fullname_p , f.file_path, t.status_tema FROM public.teme t,studenti s, professors p,files f WHERE t.id_studenti = s.id AND t.id_professor  = p.id AND t.id_file_path = f.id ORDER BY s.grupa asc, fullname_s asc");
+      "SELECT t.id, t.denumire_descriere_tema, concat( UPPER(s.nume), ' ', s.prenume ) AS fullname_s, s.grupa , concat( UPPER(p.nume), ' ', p.prenume ) AS fullname_p , p.email,  f.file_path, t.status_tema FROM public.teme t,studenti s, professors p,files f WHERE t.id_studenti = s.id AND t.id_professor  = p.id AND t.id_file_path = f.id ORDER BY s.grupa asc, fullname_s asc");
     res.status(200).json({
       status: "succes",
       results: results.rows.length,
@@ -129,14 +129,18 @@ exports.getSearchTema = async (req, res) => {
     } = req.query;
     param = param.toLowerCase();
     const query = '%' + param + '%';
-    results = await db.query(`SELECT t.denumire_descriere_tema,
-    concat( UPPER(s.nume), ' ', s.prenume ) AS fullname_s,
-    s.grupa ,
-    concat( UPPER(p.nume), ' ', p.prenume ) AS fullname_p
-    FROM public.teme t
-    JOIN public.professors p ON t.id_professor = p.id
-    JOIN public.studenti s ON t.id_studenti = s.id 
-    WHERE lower(t.denumire_descriere_tema)  || lower(concat( UPPER(s.nume), ' ', s.prenume )) || lower(concat( UPPER(p.nume), ' ', p.prenume )) || s.grupa  LIKE $1 ORDER BY s.grupa asc, fullname_s asc`, [query]);
+    results = await db.query(
+      `SELECT t.denumire_descriere_tema,
+      concat( UPPER(s.nume), ' ', s.prenume ) AS fullname_s,
+      s.grupa ,
+      concat( UPPER(p.nume), ' ', p.prenume ) AS fullname_p
+      FROM public.teme t
+      JOIN public.professors p ON t.id_professor = p.id
+      JOIN public.studenti s ON t.id_studenti = s.id 
+      WHERE lower(t.denumire_descriere_tema)  || 
+      lower(concat( UPPER(s.nume), ' ', s.prenume )) || 
+      lower(concat( UPPER(p.nume), ' ', p.prenume )) || s.grupa  
+      LIKE $1 ORDER BY s.grupa asc, fullname_s asc`, [query]);
 
     res.status(200).json({
       status: "succes",

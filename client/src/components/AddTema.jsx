@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 import { RiFilePaper2Fill } from 'react-icons/ri';
 
 function AddTema() {
-  const {addTema} = useContext(TemeContext)
+  const { addTema } = useContext(TemeContext)
   const [numeTema, setNumeTema] = useState("");
   // const [fisiere, setFisiere] = useState(-1);
-  
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,12 +20,12 @@ function AddTema() {
     e.preventDefault()
     try {
       const response = await TemeFinder.post("/", {
-        denumire_descriere_tema : numeTema,
+        denumire_descriere_tema: numeTema,
         // id_file_path : fisiere
       });
       addTema(response.data.data.teme);
       handleClose();
-      Swal.fire({      
+      Swal.fire({
         position: 'bottom-start',
         title: "Succes!",
         text: `Tema a fost adaugată cu succes!`,
@@ -34,16 +34,16 @@ function AddTema() {
         timerProgressBar: true,
         allowOutsideClick: true
       });
-      
+
     } catch (error) {
-      
+
     }
   }
 
   return (
     <div className='addButton'>
       <Button variant="primary" onClick={handleShow}>
-        Adauga <RiFilePaper2Fill size='1.8em'/> 
+        Adauga <RiFilePaper2Fill size='1.8em' />
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static">
@@ -51,47 +51,36 @@ function AddTema() {
           <Modal.Title>Adaugare temă nouă</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <form>
-              <div>
-                <div className='p-1'>
-                  <input 
-                    value={numeTema} 
-                    onChange={(e) => setNumeTema(e.target.value)} 
-                    type="text" 
-                    className='form-control'
-                    placeholder='Nume/descriere temă' 
-                  />
-                </div>
+          <form>
+            <div>
+              <div className='p-1'>
+                <input
+                  value={numeTema}
+                  onChange={(e) => setNumeTema(e.target.value)}
+                  type="text"
+                  className='form-control'
+                  placeholder='Nume/descriere temă'
+                />
               </div>
-              {/* <div>
-                <div className='p-1'>
-                    <input 
-                      value={fisiere} 
-                      onChange={(e) => setFisiere(-1)} 
-                      type="text" 
-                      className='form-control'
-                      placeholder='Fisiere' 
-                    />
-                </div>
-              </div> */}
-            </form>
-          
+            </div>
+          </form>
+
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="light" 
-            // onClick={HandleReset} 
+          <Button variant="light"
+          // onClick={HandleReset} 
           >
             Reset
           </Button>
-          <Button id='1' variant="secondary" 
+          <Button id='1' variant="secondary"
             onClick={handleClose}
-            >
+          >
             Inchide
           </Button>
-          <Button 
+          <Button
             onClick={handleSubmit}
-            variant="primary" 
-            >
+            variant="primary"
+          >
             Salveaza
           </Button>
         </Modal.Footer>
@@ -99,5 +88,5 @@ function AddTema() {
     </div>
   );
 }
-  
+
 export default AddTema

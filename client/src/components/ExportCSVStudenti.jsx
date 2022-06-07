@@ -9,7 +9,6 @@ function ExportCSVStudenti() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +23,6 @@ function ExportCSVStudenti() {
     fetchData()
 
   }, []);
-
 
   const headers = [
     { label: "ID", key: 'id' },
@@ -44,7 +42,7 @@ function ExportCSVStudenti() {
         <CSVLink
           data={data} headers={headers} separator={","} enclosingCharacter={`"`} filename={"csvStudenti.csv"}
           className="btn btn-success"
-        ><FaFileCsv size="1.8em" /> Downlaod</CSVLink>
+        ><FaFileCsv size="1.8em" /> Download</CSVLink>
       ) : (<div>Loading...</div>)
       }
     </div>
