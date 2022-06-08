@@ -9,7 +9,6 @@ import FilesList from './../../components/FilesList';
 const UploadTemePage = () => {
   return (
     <div>
-      <h1 className='title-teme-page'>Upload fisiere</h1>
       <TemeContextProvider>
         <StudentiContextProvider>
           <ProfessorsContextProvider>

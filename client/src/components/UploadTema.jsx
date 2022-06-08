@@ -4,7 +4,8 @@ import axios from 'axios';
 import { TemeContext } from "../context/TemeContext";
 import TemeFinder from "../apis/TemeFinder";
 import StudentFinder from "../apis/StudentFinder";
-
+import { ImFolderUpload } from 'react-icons/im';
+import './styles/UploadTema.css';
 
 const UploadTema = (props) => {
 
@@ -67,41 +68,55 @@ const UploadTema = (props) => {
 
   return (
     <div>
-      <h3>Zona de încărcare a fișierelor pentru tema</h3>
-      <h5>{`${numeTema}`}</h5>
+      <h1 className='text-center'><b>UPLOAD FIȘIERE</b></h1>
+      <h3 className="heading-upload">Zona de încărcare a fișierelor pentru tema</h3>
+      <h5 className="heading-upload">{`${numeTema}`}</h5>
       <br></br>
       {loading ? (
-        <h3>Student <b>{`${student}`}</b></h3>
+        <h3 className="heading-upload">Student <b>{`${student}`}</b></h3>
       ) : (
-        <h3>Nu există student atribuit acestei teme</h3>
+        <h3 className="heading-upload">Nu există student atribuit acestei teme</h3>
       )}
       <br></br>
       {!loading ? (
-        <h3>Nu se pot încărca fișiere întrucât nu există un student alocat</h3>
+        <h3 className="heading-upload">Nu se pot încărca fișiere întrucât nu există un student alocat</h3>
       ) : (
-        <form onSubmit={onFormSubmit}>
-          <div className='flex'>
-            <label htmlFor="name">Nume</label>
-            <input
-              type="text"
-              id="name"
-              onChange={event => {
-                const { value } = event.target;
-                setName(value);
-              }}
-            />
-          </div>
-          <div className='flex'>
-            <label htmlFor="file">File</label>
-            <input
-              type="file"
-              id='file'
-              name='file'
-              onChange={onInputChange}
-            />
-          </div>
-          <button type="submit">Upload</button>
-        </form>
+        <div className="file-card">
+          <form onSubmit={onFormSubmit}>
+            <div className='input-name-container'>
+              <label htmlFor="name">Denumeste fișier :</label>
+              <input
+                type="text"
+                id="name"
+                onChange={event => {
+                  const { value } = event.target;
+                  setName(value);
+                }}
+              />
+            </div>
+            <div className='input-container'>
+              <button
+                className="uploadButton"
+                type="button">
+                <i>
+                  <ImFolderUpload />
+                </i> Alege fișierul
+              </button>
+              <input
+                type="file"
+                id='file'
+                name='file'
+                onChange={onInputChange}
+              />
+            </div>
+            <button
+              className="submit-button"
+              type="submit">
+              Trimite
+            </button>
+            <p className="main">Fișiere suportate : JPG, JPEG, PNG</p>
+          </form>
+        </div>
       )}
     </div>
   );

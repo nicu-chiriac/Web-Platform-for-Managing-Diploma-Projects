@@ -118,11 +118,11 @@ const FilesList = () => {
 
   return (
     <div className='list-group'>
-      <div className='table-wrapper'>
+      <div className='lable-wrapper'>
         <table className='table table-hover table-default'>
           <thead>
             <tr>
-              <th scope='col'>Nume fișier</th>
+              <th scope='col'>Fișiere încărcate</th>
               <th scope='col'>Acțiuni</th>
             </tr>
           </thead>
