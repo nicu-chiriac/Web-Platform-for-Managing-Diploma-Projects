@@ -20,6 +20,9 @@ const authRoutes = require('./src/routes/auth-routes')
 //initializare rute 
 app.use('/api', authRoutes)
 
+app.use(express.static(path.join(__dirname, "assets/uploads")));
+// console.log(path.join(__dirname, "assets/uploads"));
+
 const port = PORT || 3002;
 
 //app start

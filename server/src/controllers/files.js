@@ -1,6 +1,9 @@
 const db = require('../db');
 const multer = require("multer");
 path = require("path");
+const { PORT, CLIENT_URL } = require("../constants");
+
+const port = PORT || 3002;
 
 const multerConfig = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -74,22 +77,20 @@ exports.getFiles = async (req, res) => {
   }
 }
 
-// exports.downloadFile = async (req, res) => {
-  
-  //   const filePath = `${__dirname}/download/javascript.pdf`;
-  //   console.log(filePath)
-  //   res.download(filePath, 'js.pdf', (err) => {
-  //     if (err) {
-  //         console.log(err);
-  //         res.status(500).send('Could not download file');
-  //     }
-  // });
-  // const {
-  //   body : { fileName }
-  // } = req;
-  // const filePath = path.join(__dirname, '../../assets/uploads/stanescu_1654633601620.jpeg');
-  // console.log(filePath)
-  // res.attachment(filePath).send();
-    
-  
-// }
+
+
+
+exports.downloadFile = async (req, res) => {
+  const {
+      body : { fileName }
+    } = req;
+  // const fileName = 'stanescu_1654633601620.jpeg';
+  const fileUrl = `http://localhost:${port}/api/download/${fileName}`;
+  const filePath = path.join(__dirname, '../../assets/uploads', `${fileName}`);
+ 
+  try {
+    res.download(filePath)
+  } catch (error) {
+    console.log(error)
+  }
+}

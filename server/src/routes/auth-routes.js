@@ -18,7 +18,7 @@ router.get('/logout', logout)
 
 router.post('/upload', uploadImage, uploadFile)
 router.get("/files/:id", getFiles )
-// router.get("/files/download", downloadFile)
+router.post("/download", downloadFile)
 
 router.get("/studentlist", passport.authenticate('userPassport', { session: false }), getStudentList )
 router.get("/searchstudent", passport.authenticate('userPassport', { session: false }), getSearchStudent)
