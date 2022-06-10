@@ -1,0 +1,10 @@
+.vecteezy-background {
+  display: flex;
+  z-index: -5;
+  position: absolute;
+  width: 100%;
+  height: max-content;
+  opacity: 0.4;
+  mix-blend-mode:luminosity;
+ 
+}

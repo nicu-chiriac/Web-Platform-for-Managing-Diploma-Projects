@@ -9,6 +9,7 @@ import { TiDelete } from 'react-icons/ti';
 import { FcDownload } from 'react-icons/fc';
 import Swal from 'sweetalert2';
 import { fetchRestrictedInfo } from '../apis/AuthFinder';
+import './styles/FilesList.css'
 
 const FilesList = () => {
 
@@ -17,6 +18,8 @@ const FilesList = () => {
   const { files, setFiles } = useContext(FilesContext)
 
   const [fileName, setFileName] = useState();
+
+  const [fileId, setFileId] = useState();
 
   const [idStudent, setIdStudent] = useState();
 
@@ -59,6 +62,16 @@ const FilesList = () => {
   restrictedInfo();
   restrictedInfo();
 
+  let axiosConfig = {
+    method: 'delete',
+    url: 'http://localhost:3001/api/filedelete',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: { fileId, fileName }
+  };
+
+
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Esti sigur?',
@@ -71,7 +84,12 @@ const FilesList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          TemeFinder.delete(`/${id}`);
+          Axios(axiosConfig).then(function (response) {
+            console.log(JSON.stringify(response.data))
+          })
+            .catch(function (error) {
+              console.log(error)
+            })
           if (isRestricted.current === true) {
             setFiles(files.filter(file => {
               return file.id !== id
@@ -97,10 +115,6 @@ const FilesList = () => {
     })
   }
 
-  const updateButtonState = () => {
-    setFileName(null)
-  }
-
   const download = (e) => {
     e.preventDefault()
     Axios({
@@ -116,24 +130,28 @@ const FilesList = () => {
     })
   }
 
+
   return (
-    <div className='list-group'>
-      <div className='lable-wrapper'>
+    <div className='list-group-filelist'>
+      <div className='lable-wrapper-filelist'>
         <table className='table table-hover table-default'>
-          <thead>
-            <tr>
-              <th scope='col'>Fișiere încărcate</th>
-              <th scope='col'>Acțiuni</th>
-            </tr>
-          </thead>
           <tbody>
             {files && files.filter(f => f.id > 0).map(file => {
               return (
-                <tr key={file.id}>
-                  <td>{file.file_path.slice(64)}</td>
-                  <td>
-                    <button onClick={(e) => { setFileName(file.file_path.slice(64)); download(e); console.log(fileName); setFileName(file.file_path.slice(64)) }} className='btn btn-outline-light btn-sm'><FcDownload size="1.5em" /></button>
-                    <button onClick={() => handleDelete(file.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em" /></button>
+                <tr className="td-file-list" key={file.id}>
+                  <td className="td-file-list">{file.file_path.slice(64)}</td>
+                  {/* <td>
+                    {file.upload_date !== null ? (
+                      file.upload_date.slice(0, 10)
+                    ) : (
+                      file.upload_date
+                    )
+                    }
+                  </td> */}
+                  <td className='td-file-list-buttons'>
+                    <input onClick={() => { setFileName(file.file_path.slice(64)); setFileId(file.id) }} class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="" ></input>
+                    <button onClick={(e) => { setFileName(file.file_path.slice(64)); download(e); console.log(fileName) }} className='btn btn-outline btn-sm'><FcDownload size="1.5em" /></button>
+                    <button onClick={(e) => handleDelete(file.id)} className='btn btn-outline-danger btn-sm'><TiDelete size="1.5em" /></button>
                   </td>
                 </tr>
               )
@@ -141,7 +159,7 @@ const FilesList = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td><b>Total fisiere încărcate : {files.filter(f => f.id > 0).length}</b></td>
+              <td clasName="td-bottom-file-list"><b>Total fișiere încărcate : {files.filter(f => f.id > 0).length}</b></td>
             </tr>
           </tfoot>
         </table>

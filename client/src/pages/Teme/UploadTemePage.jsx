@@ -5,10 +5,12 @@ import { ProfessorsContextProvider } from '../../context/ProfessorsContext';
 import { TemeContextProvider } from '../../context/TemeContext';
 import { FilesContextProvider } from '../../context/FilesContext';
 import FilesList from './../../components/FilesList';
+import './../../components/styles/UploadTemePage.css';
 
 const UploadTemePage = () => {
   return (
     <div>
+      <img className='vecteezy-background' src="/vecteezy_abstract-background.jpg" alt="Baclground from Vecteezy.com" />
       <TemeContextProvider>
         <StudentiContextProvider>
           <ProfessorsContextProvider>

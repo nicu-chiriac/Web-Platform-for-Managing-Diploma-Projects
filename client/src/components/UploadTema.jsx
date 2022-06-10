@@ -6,6 +6,8 @@ import TemeFinder from "../apis/TemeFinder";
 import StudentFinder from "../apis/StudentFinder";
 import { ImFolderUpload } from 'react-icons/im';
 import './styles/UploadTema.css';
+import { BsPersonCircle } from 'react-icons/bs';
+import { MdDescription } from 'react-icons/md';
 
 const UploadTema = (props) => {
 
@@ -68,54 +70,59 @@ const UploadTema = (props) => {
 
   return (
     <div>
-      <h1 className='text-center'><b>UPLOAD FIȘIERE</b></h1>
-      <h3 className="heading-upload">Zona de încărcare a fișierelor pentru tema</h3>
-      <h5 className="heading-upload">{`${numeTema}`}</h5>
-      <br></br>
       {loading ? (
-        <h3 className="heading-upload">Student <b>{`${student}`}</b></h3>
+        <h1 className="heading-upload"><BsPersonCircle size="1.5em" /> Student <br /><b>{`${student}`}</b></h1>
       ) : (
-        <h3 className="heading-upload">Nu există student atribuit acestei teme</h3>
+        <h3 className="heading-upload" style={{ color: "red" }}>Nu există student atribuit acestei teme</h3>
       )}
-      <br></br>
+
+      <h3 className="heading-upload"><MdDescription size="1.5em" /></h3>
+      <h5 className="heading-tema">"{`${numeTema}`}"</h5>
+      <br />
       {!loading ? (
-        <h3 className="heading-upload">Nu se pot încărca fișiere întrucât nu există un student alocat</h3>
+        <div>
+          <h3 className="heading-upload" style={{ color: "red" }} >Nu se pot încărca fișiere întrucât nu există un student alocat</h3>
+          <img className='nothing-found' src="/nothing-found.png" alt="Nothing found" />
+        </div>
       ) : (
-        <div className="file-card">
-          <form onSubmit={onFormSubmit}>
-            <div className='input-name-container'>
-              <label htmlFor="name">Denumeste fișier :</label>
-              <input
-                type="text"
-                id="name"
-                onChange={event => {
-                  const { value } = event.target;
-                  setName(value);
-                }}
-              />
-            </div>
-            <div className='input-container'>
+        <div>
+          <h2 className='text-center'><b> ZONĂ DE UPLOAD FIȘIERE</b></h2>
+          <div className="file-card">
+            <form onSubmit={onFormSubmit}>
+              <div className='input-name-container'>
+                <label htmlFor="name">Denumeste fișier :</label>
+                <input
+                  type="text"
+                  id="name"
+                  onChange={event => {
+                    const { value } = event.target;
+                    setName(value);
+                  }}
+                />
+              </div>
+              <div className='input-container'>
+                <button
+                  className="uploadButton"
+                  type="button">
+                  <i>
+                    <ImFolderUpload />
+                  </i> Alege fișierul
+                </button>
+                <input
+                  type="file"
+                  id='file'
+                  name='file'
+                  onChange={onInputChange}
+                />
+              </div>
               <button
-                className="uploadButton"
-                type="button">
-                <i>
-                  <ImFolderUpload />
-                </i> Alege fișierul
+                className="submit-button"
+                type="submit">
+                Trimite
               </button>
-              <input
-                type="file"
-                id='file'
-                name='file'
-                onChange={onInputChange}
-              />
-            </div>
-            <button
-              className="submit-button"
-              type="submit">
-              Trimite
-            </button>
-            <p className="main">Fișiere suportate : JPG, JPEG, PNG</p>
-          </form>
+              <p className="main">Fișiere suportate : JPG, JPEG, PNG</p>
+            </form>
+          </div>
         </div>
       )}
     </div>

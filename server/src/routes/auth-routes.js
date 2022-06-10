@@ -5,7 +5,7 @@ const { getProfessorsList, getSearchProfessor, getProfessor, addProfessor, impor
 const { validationMiddleware } = require('../middlewares/validations-middleware');
 const { registerValidation, loginValidation } = require('../validators/auth-validators');
 const { getTemeList, getTema, addTema, updateTema, deleteTema, importTitluriTemeCsv, getSearchTema } = require('../controllers/teme');
-const { uploadFile, uploadImage, getFiles, downloadFile } = require('../controllers/files')
+const { uploadFile, uploadImage, getFiles, downloadFile, fileDelete } = require('../controllers/files')
 const passport = require('passport');
 const router = Router();
 
@@ -19,6 +19,7 @@ router.get('/logout', logout)
 router.post('/upload', uploadImage, uploadFile)
 router.get("/files/:id", getFiles )
 router.post("/download", downloadFile)
+router.delete("/filedelete", fileDelete)
 
 router.get("/studentlist", passport.authenticate('userPassport', { session: false }), getStudentList )
 router.get("/searchstudent", passport.authenticate('userPassport', { session: false }), getSearchStudent)
